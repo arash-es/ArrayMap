@@ -104,8 +104,9 @@ function isPrimitive(value) {
 }
 
 /**
- * for better code minification
+ * the next abstractions are for better code minification
  */
+
 function createSymbol() {
   return Symbol();
 }
