@@ -7,7 +7,7 @@
   "scripts": {
     "start": "nodemon index.js"
   },
-  "author": "Arash Esmaeilbeygi ",
+  "author": "Arash Esmaeilbeygi",
   "license": "MIT",
   "repository": {
     "type": "git",
