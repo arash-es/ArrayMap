@@ -56,6 +56,9 @@ class ArrayMap extends Map {
    * @param {GetHashFromKeyOptions} options
    */
   [getHashFromKeysSymbol](keys, options) {
+    if (!Array.isArray(keys)) {
+      throw new Error("typeof keys should be Array");
+    }
     return keys.reduce((concatenated, currentKey) => concatenated + this[getHashFromKeySymbol](currentKey, options), "");
   }
 
