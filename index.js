@@ -8,10 +8,18 @@ const getHashFromKeySymbol = createSymbol();
 const getHashFromKeysSymbol = createSymbol();
 
 class ArrayMap extends Map {
-  constructor() {
+  constructor(entries = []) {
     super();
     this[keyCounterSymbol] = 0;
     this[refsHashMapSymbol] = new WeakMap();
+
+    if (typeof entries[Symbol.iterator] !== "function") {
+      throwNotArrayTypeError("entries");
+    }
+
+    for (const [keys, value] of entries) {
+      this.set(keys, value);
+    }
   }
 
   /**
@@ -57,7 +65,7 @@ class ArrayMap extends Map {
    */
   [getHashFromKeysSymbol](keys, options) {
     if (!Array.isArray(keys)) {
-      throw new Error("typeof keys should be Array");
+      throwNotArrayTypeError("keys");
     }
     return keys.reduce((concatenated, currentKey) => concatenated + this[getHashFromKeySymbol](currentKey, options), "");
   }
@@ -100,6 +108,10 @@ function isPrimitive(value) {
  */
 function createSymbol() {
   return Symbol();
+}
+
+function throwNotArrayTypeError(name) {
+  throw new TypeError(`${name} should be an Array`);
 }
 
 export default ArrayMap;
